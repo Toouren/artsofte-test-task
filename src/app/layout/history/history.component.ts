@@ -27,7 +27,7 @@ export class HistoryComponent {
     return resultNumberPartsArray.join(' ');
   }
 
-  private reverseCurrentStorage() {
+  reverseCurrentStorage() {
     const reversedArray = Array.from(this.storageRecords.reverse());
     this.storageRecords.reverse();
     return reversedArray;

@@ -12,10 +12,10 @@ import { StorageWorkerService } from 'src/app/storage-worker/storage-worker.serv
   styleUrls: ['./payment-create.component.css']
 })
 export class PaymentCreateComponent {
-  private paymentInfo: FormGroup;
-  private monthList: number[] = [];
-  private yearList: number[] = [];
-  private formGroupValid = false;
+  paymentInfo: FormGroup;
+  monthList: number[] = [];
+  yearList: number[] = [];
+  formGroupValid = false;
   private currentFieldsState: IFields;
 
   defineMonthList() {

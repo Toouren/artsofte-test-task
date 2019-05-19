@@ -11,8 +11,8 @@ import { PaymentCreateComponent } from './layout/payment-create/payment-create.c
 })
 export class AppComponent {
 
-  private sections: ISection[] = [];
-  private currentSection: ISection;
+  sections: ISection[] = [];
+  currentSection: ISection;
 
   constructor() {
     this.sections.push(
