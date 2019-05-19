@@ -1,0 +1,71 @@
+<div class="payment-wrapper">
+  <form class="payment-form" [formGroup]="paymentInfo">
+    <div class="credit-card">
+      <div class="card-number">
+        <div class="title">Номер карты отправителя</div>
+        <input
+          formControlName="payerCardNumber"
+          class="card-number__input"
+          placeholder="0000 0000 0000 0000"
+          mask="0000 0000 0000 0000"
+          [dropSpecialCharacters]="false">
+      </div>
+      <div class="payer-name">
+        <div class="title">Имя плательщика</div>
+        <input
+          formControlName="payerName"
+          class="payer-name__input"
+          mask="S* S*"
+          placeholder="IVANOV IVAN"
+          [dropSpecialCharacters]="false">
+      </div>
+      <div class="active-date">
+        <div class="title">Активна до</div>
+        <div class="date-month">
+          <select formControlName="activeDateMonth" class="active-date__input">
+            <option *ngFor="let monthNumber of monthList" value="{{monthNumber}}">{{monthNumber}}</option>
+          </select>
+        </div>
+        /
+        <div class="date-year">
+          <select formControlName="activeDateYear" class="active-date__input">
+            <option *ngFor="let yearNumber of yearList" value="{{yearNumber}}">{{yearNumber}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="img-block">
+        <img class="img-block__img" src="assets/img/visamastermaestro.png">
+      </div>
+    </div>
+    <div class="arrow-wrapper">
+      <button
+        class="send-button__button"
+        [disabled]="!formGroupValid"
+        (click)="sendValidFormToStorage()">
+        <img class="arrow-wrapper__img" src="assets/img/arrow-point-to-right.svg">
+      </button>
+    </div>
+    <div class="credit-card">
+      <div class="card-number">
+        <div class="title">Номер карты получателя</div>
+        <input
+          formControlName="recipientCardNumber"
+          class="card-number__input"
+          placeholder="0000 0000 0000 0000"
+          mask="0000 0000 0000 0000"
+          [dropSpecialCharacters]="false">
+      </div>
+    </div>
+    <div class="any-fields">
+      <div class="sum">
+        <div class="title">Сумма</div>
+        <div class="sum__description">От 100 до 1000000</div>
+        <input
+          formControlName="sum"
+          class="sum__input"
+          mask="0*"
+          (change)="validateSum()">
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,34 @@
+<div class="history-wrapper">
+  <div class="grid-wrapper">
+    <div class="index title">Номер</div>
+    <div class="payer-card-block title">Номер карты отправителя</div>
+    <div class="reciepient-card-block title">Номер карты получателя</div>
+    <div class="sum-block title">Сумма</div>
+    <div class="date-block title">Дата операции</div>
+  </div>
+  <div *ngFor="let record of reverseCurrentStorage(); index as i" class="grid-wrapper">
+    <div class="index data">{{i+1}}</div>
+    <div class="payer-card-block data">{{renderCardNumber(record.fields.payerCardNumber)}}</div>
+    <div class="reciepient-card-block data">{{renderCardNumber(record.fields.recipientCardNumber)}}</div>
+    <div class="sum-block data">{{record.fields.sum}}</div>
+    <div class="date-block data">{{renderDate(record.date)}}</div>
+    <div class="actions-block data">
+      <button
+        #repeatButton
+        class="repeat-img"
+        title="Повторить платеж"
+        value="{{record.key}}"
+        (click)="repeatPay(repeatButton.value)">
+        <img class="repeat-img__img" src="assets/img/repeat.svg">
+      </button>
+      <button
+        #deleteButton
+        class="delete-img"
+        title="Удалить платеж"
+        value="{{record.key}}"
+        (click)="deleteRecord(deleteButton.value)">
+        <img class="delete-img__img" src="assets/img/delete.svg">
+      </button>
+    </div>
+  </div>
+</div>

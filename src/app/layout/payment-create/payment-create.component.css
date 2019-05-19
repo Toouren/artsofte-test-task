@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.payment-wrapper
+{
+  width: 100%;
+  margin-top: 50px;
+  font-size: 16px;
+}
+
+.payment-form
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.credit-card
+{
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  flex-wrap: wrap;
+  border: 1px solid rgba(145, 145, 145, .5);
+  border-radius: 8px;
+  height: 220px;
+}
+
+.any-fields,
+.send-button
+{
+  width: 100%;
+  display: flex;
+}
+
+.payer-name__input
+{
+  text-transform: uppercase;
+}
+
+.card-number
+{
+  width: 100%;
+}
+
+.payer-name
+{
+  width: 50%;
+}
+
+.active-date
+{
+  width: 35%;
+}
+
+.sum
+{
+  width: 20%;
+  margin: 40px auto;
+  cursor: default;
+  text-align: center;
+}
+
+.sum__input
+{
+  text-align: center;
+}
+
+.card-number,
+.payer-name,
+.active-date
+{
+  margin: 15px;
+  cursor: default;
+}
+
+.card-number__input,
+.payer-name__input,
+.active-date__input,
+.sum__input
+{
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid rgba(145, 145, 145, .5);
+  font-size: 16px;
+  height: 25px;
+  font-family: 'Roboto', sans-serif;
+  outline: none;
+}
+
+.title
+{
+  font-size: 18px;
+  color: #f49ec4;
+}
+
+.date-month,
+.date-year
+{
+  display: inline-block;
+}
+
+.img-block
+{
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.img-block__img
+{
+  width: 120px;
+  height: 30px;
+  opacity: .8;
+}
+
+.send-button__button
+{
+  background: none;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  width: fit-content;
+  transition-property: all;
+  transition-duration: .7s;
+}
+
+.send-button__button:disabled
+{
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+.send-button__button:enabled
+{
+  transform: scale(1.4);
+}
+
+.arrow-wrapper
+{
+  width: 10%;
+  display: flex;
+  align-items: center;
+}
+
+.arrow-wrapper__img
+{
+  width: 100%;
+  margin: auto;
+}
+
+.sum__description
+{
+  font-size: 14px;
+  color: rgba(145, 145, 145, .5)
+}

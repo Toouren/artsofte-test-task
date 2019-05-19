@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.history-wrapper
+{
+  width: 100%;
+  margin-top: 50px;
+  font-size: 16px;
+}
+
+.grid-wrapper
+{
+  display: grid;
+  grid-template: 'number payer-card reciepient-card sum date actions' / .5fr 3fr 3fr 2fr 2fr 2fr;
+  justify-items: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.index
+{
+  grid-area: number;
+}
+
+.payer-card-block
+{
+  grid-area: payer-card;
+}
+
+.reciepient-card-block
+{
+  grid-area: reciepient-card;
+}
+
+.sum-block
+{
+  grid-area: sum;
+}
+
+.date-block
+{
+  grid-area: date;
+}
+
+.actions-block
+{
+  grid-area: actions;
+  width: 100%;
+  justify-content: space-around;
+  display: flex;
+}
+
+.title
+{
+  font-size: 18px;
+  color: #f49ec4;
+  margin-bottom: 10px;
+}
+
+.data
+{
+  font-size: 16px;
+  color: rgba(145, 145, 145, .9);
+}
+
+.delete-img__img,
+.repeat-img__img
+{
+  width: 20px;
+  height: 20px;
+}
+
+.delete-img,
+.repeat-img
+{
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+}
