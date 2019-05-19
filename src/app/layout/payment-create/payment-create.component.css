@@ -5,6 +5,9 @@
   width: 100%;
   margin-top: 50px;
   font-size: 16px;
+  display: flex;
+  overflow: hidden;
+  flex-wrap: wrap;
 }
 
 .payment-form
@@ -151,4 +154,18 @@
 {
   font-size: 14px;
   color: rgba(145, 145, 145, .5)
+}
+
+.error-block,
+.success-block
+{
+  position: relative;
+  left: 100vw;
+  transition-property: all;
+  transition-duration: .7s;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid rgba(145, 145, 145, .5);
+  border-radius: 5px;
 }

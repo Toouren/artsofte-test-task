@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AppSettings } from 'src/app/appsettings';
-import { IFields, IStorageRecord } from 'src/app/types';
-import { LocalStorageService } from 'ngx-webstorage';
+import { IFields } from 'src/app/types';
 import { StorageWorkerService } from 'src/app/storage-worker/storage-worker.service';
 
 @Component({
@@ -16,6 +15,9 @@ export class PaymentCreateComponent {
   monthList: number[] = [];
   yearList: number[] = [];
   formGroupValid = false;
+  successLeftAlign: string;
+  errorLeftAlign: string;
+
   private currentFieldsState: IFields;
 
   defineMonthList() {
@@ -67,9 +69,20 @@ export class PaymentCreateComponent {
   }
 
   sendValidFormToStorage() {
-    console.log(this.currentFieldsState);
-    this.storageService.pushRecordToLocalStorage(this.currentFieldsState);
-    this.paymentInfo.reset();
+    try {
+      this.storageService.pushRecordToLocalStorage(this.currentFieldsState);
+      this.successLeftAlign = '0';
+      setTimeout(() => {
+        this.successLeftAlign = '100vw';
+      }, 6000);
+    } catch {
+      this.errorLeftAlign = '100vw';
+      setTimeout(() => {
+        this.errorLeftAlign = '100vw';
+      }, 6000);
+    } finally {
+      this.paymentInfo.reset();
+    }
   }
 
   setValuesToForm(fields: IFields) {
