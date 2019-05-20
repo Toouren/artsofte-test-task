@@ -41,8 +41,12 @@ module.exports = {
         loader: 'html-loader'
       },
       {
-        test: /\.(png|svg|ico)$/,
+        test: /\.(png|svg)$/,
         loader: 'file-loader?name=assets/[name].[hash].[ext]'
+      },
+      {
+        test: /\.(ico)$/,
+        loader: 'file-loader?name=assets/[name].[ext]'
       },
       {
         test: /\.css$/,
