@@ -1,27 +1,65 @@
 # ArtsofteTestTask
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+## Локальный запуск
 
-## Development server
+`npm run dev` для запуска сервера на локалхосте. Доступен по адресу `http://localhost:8080/`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Сборка
 
-## Code scaffolding
+`npm run build` для сборки проекта. Собранное приложение будет в папке `dist/`. Сборка происходит с помощью webpack. Настройки находятся в файле `webpack.config.js`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Размещение в сети
 
-## Build
+Любое изменение `master` ветки на гитхабе влечет за собой деплой в heroku. На heroku сервис собирается в директорию `dist/` и размещается по адресу `https://artsofte-test-task.herokuapp.com/`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Краткое описание
 
-## Running unit tests
+Проект редоставляет из себя сервис, с помощью которого можно переводить деньги с одной банковской карты на другую и посмотреть историю переводов. Сервис разработан с помощью фреймворка `Angular 7` и представлен в виде SPA.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Как пользоваться сервисом
 
-## Running end-to-end tests
+* При открытии главной страницы, можно заметить меню, состоящее из двух кнопок "Создать платеж" и "История платежей". По умолчанию, при запуске, первым открывается блок создания платежа. Весь блок состоит из формы с полями для корректного перевода и кнопки перевода, представленной в виде стрелки между картами.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+  ![](https://i.imgur.com/ZWOSlmg.png)
 
-## Further help
+* Чтобы сделать перевод, нужно корректно заполнить все поля формы:
+  * Ввести 16 чисел в поля ввода номера карты получателя и отправителя (номера должны быть разными);
+  * Ввести через пробел имя и фамилию отправителя (как указано на карте);
+  * Выбрать срок действия карты с помощью селекта (он должен быть больше чем текущая дата);
+  * Ввести сумму (от 100 до 1000000), если будет введено больше или меньше, то подставится ближнее значение.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  После корректного заполнения, кнопка в центре станет крупнее, ярче и будет возможность на нее нажать, чтобы совершить перевод.
+
+  ![](https://i.imgur.com/iFNmOsV.png)
+
+* При возникновении ошибки на экране появится сообщение об ошибке. При успешном совершении операции, появится соответсвующее уведомлением, а данные о переводе появятся в истории.
+
+  ![](https://i.imgur.com/17WLvZm.png)
+
+* Открыть историю можно, нажав по вкладке "История платежей". Перед пользователем октроется список переводов от нового к старому.
+
+  ![](https://i.imgur.com/JDfBtiR.png)
+
+* Чтобы повторить операцию, можно нажать на соответсвующую кнопку, все реквизиты будут находится во вкладке "Создать платеж", их можно будет увидеть после перехода в него.
+
+  ![](https://i.imgur.com/ZufmI8J.gif)
+
+* Чтобы удалить операция, можно нажать на соответсвующую кнопку.
+
+  ![](https://i.imgur.com/nK06cGM.gif)
+
+
+## Архитектура
+
+Весь сервис состоит из одного модуля (`app/app.module.ts`), в которм содержатся 4 компоненты и 1 сервис:
+
+#### Компоненты:
+
+* `LayoutComponent` содержит логику работы переключения между другими компонентами. Зависит от сервиса `ComponentFactoryResolver`, который предоставляет возможность динамически генерировать дочерние компоненты.
+  * `PaymentCreateComponent` содержит логику работы блока с формой перевода. Зависит от сервиса `StorageWorkerService`, используя его методы и подписываясь на его события. Является дочерним компонентом у `LayoutComponent`.
+  * `HistoryComponent` содержит логику работы блока с историей переводов. Зависит от сервиса `StorageWorkerService`, используя его методы и подписываясь на его события. Является дочерним компонентом у `LayoutComponent`.
+* `AppComponent` инициализирующий компонент, инициирует отрисовку других компонентов.
+
+### Сервис:
+
+В приложении реализована одна сущность типа сервис - `StorageWorkerService`. Сервис содержит основную логику работы приложения по работе с LocalStorage. Является в каком-то роде мидлварой между компонентами и сервисом `localStorageService`. Имеет возможность добавлять в localstorage браузер данные (метод `pushRecordToLocalStorage`), удалять их (метод `deleteRecordFromLocalStorage`). Умеет реагировать на изменения localstorage браузера и прокидывать это событие в компоненты сервиса (методы `localStorageChanged` и `emitStorageChangedEvent`). А так же может возбудить событие того, что нужно повторить платеж и прокидывает соответсвющие данные о нем в другую компоненту(методы `repeatPay` и `emitRepeatPayEvent`).

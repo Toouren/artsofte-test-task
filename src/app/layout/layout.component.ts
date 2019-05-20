@@ -4,8 +4,8 @@ import { Component,
           OnChanges,
           ApplicationRef,
           ViewChild,
-          ViewContainerRef,
-          ElementRef} from '@angular/core';
+          ViewContainerRef
+        } from '@angular/core';
 import { ISection } from '../types';
 
 @Component({

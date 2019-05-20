@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ValidatorFn } from '@angular/forms';
 
 import { AppSettings } from 'src/app/appsettings';
 import { IFields } from 'src/app/types';
@@ -44,6 +44,7 @@ export class PaymentCreateComponent {
         AppSettings.ANY_FIELDS)
       );
     this.currentFieldsState = this.paymentInfo.value;
+    this.paymentInfo.setValidators([this.validateCardNumbers(), this.validateDate()]);
     this.paymentInfo.valueChanges.subscribe((textFields: IFields) => this.valueChanged(textFields));
     this.storageService.repeatPayEvent.subscribe((fields: IFields) => this.setValuesToForm(fields));
     this.checkFormValid();
@@ -57,6 +58,30 @@ export class PaymentCreateComponent {
       sumNumber > 1000000 ? '1000000' :
       formSumControl.value;
     formSumControl.setValue(newValue);
+  }
+
+  validateCardNumbers(): ValidatorFn {
+    return (group: FormGroup) => {
+      const payerCardNumber = group.controls.payerCardNumber;
+      const recipientCardNumber = group.controls.recipientCardNumber;
+      return payerCardNumber.value === recipientCardNumber.value ? {equalNumber: true} : null;
+    };
+  }
+
+  // мне очень стыдно за этот метод (если вы не видите этот коммент, то я уже все исправил)
+  validateDate(): ValidatorFn {
+    return (group: FormGroup) => {
+      const month = parseFloat(group.controls.activeDateMonth.value);
+      const year = parseFloat(group.controls.activeDateYear.value);
+      if (!isNaN(month) && !isNaN(year)) {
+        const setDate = new Date(2000 + year, month - 1);
+        const currentDate = new Date();
+        if (setDate < currentDate) {
+          return { uncorrectDate: true };
+        }
+      }
+      return null;
+    };
   }
 
   checkFormValid() {
